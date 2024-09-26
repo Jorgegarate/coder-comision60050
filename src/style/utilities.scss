@@ -1,0 +1,30 @@
+.d-flex {
+    display: flex;
+}
+.justify-content-space-between {
+    justify-content: space-between;
+}
+.justify-content-center {
+    justify-content: center;
+}
+.justify-content-align-items-center {
+    align-items: center;
+}
+.container-full {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.m-vertical {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+.w-100 {
+    width: 100%;
+}
+.w-auto {
+    width: auto;
+}
+/*Iconos*/
+.menu-icon {
+    font-size: 24px;
+}

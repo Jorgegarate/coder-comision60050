@@ -1,15 +1,19 @@
-function Navbar() {
-    return (
-        <nav>
-            <ul>
-                <li>boton 1</li>
-                <li>boton 2</li>
-                <li>boton 3</li>
-                <li>boton 4</li>
-                <li>boton 5</li>
-            </ul>
-        </nav>
-    )
+import { useState } from "react";
+import CartWidget from "./CartWidget";
+import WishList from "./Wishlist";
+import NavList from "./NavList";
 
-}
-export default Navbar
+const NavBar = () => {
+    return (
+        <nav className="d-flex w-100 justify-content-space-between">
+            <NavList />
+            <div className="d-flex justify-content-align-items-center">
+            <WishList />
+            <CartWidget />
+            </div>
+            
+        </nav>
+    );
+};
+
+export default NavBar;

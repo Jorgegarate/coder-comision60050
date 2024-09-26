@@ -4,7 +4,7 @@ const Item = (props) => {
     return (
         <div>
             <div className='hijo'> {/* Primer hijo */}
-                <img src={props.polera} alt={props.nombre} />
+                <img src={`src/img/${props.imagen}.jpg`} alt={props.nombre} />
                 <div className='product'>
                     <h4>{props.nombre}</h4>
                     <p>$<span>{props.valor}</span></p>
@@ -13,7 +13,7 @@ const Item = (props) => {
             </div>
             <ItemCount 
                 initial={1}
-                stock={5}
+                stock={props.cantidad}
                 onAdd={miOnAdd}  
             /> 
         </div>

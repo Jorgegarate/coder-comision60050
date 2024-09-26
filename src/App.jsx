@@ -1,5 +1,5 @@
 import Header from "./components/Header.jsx"
-import logo from './img/logo.svg';
+import logo from './img/TiendaDeJorge.svg';
 import Carrusel from "./components/Carrusel.jsx"
 import Main from "./components/Main.jsx"
 import Footer from "./components/Footer.jsx"
@@ -8,12 +8,10 @@ function App() {
   
   return (
     <>
-      <Header logo={logo}
-      />
+      <Header logo={logo}/>
       <Carrusel />
-      <Main
-      />
-      < Footer logo={logo} />
+      <Main/>
+      <Footer logo={logo}/>
     </>
   )
 }
