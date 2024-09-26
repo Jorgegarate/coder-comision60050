@@ -24,7 +24,31 @@
 .w-auto {
     width: auto;
 }
+.d-none {
+    display: none;
+}
+.d-block {
+    display: block;
+}
 /*Iconos*/
 .menu-icon {
     font-size: 24px;
+}
+
+/*Padding*/
+.pv-100 {
+padding-top: 20rem;
+padding-bottom: 20rem;
+}
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+
+@media (max-width: $breakpoint-md) {
+    .d-sm-none {
+        display: none;
+    }
+    .d-sm-block {
+        display: block;
+    }
 }

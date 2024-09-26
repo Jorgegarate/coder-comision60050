@@ -14,7 +14,7 @@ const Main = () => {
       <div>
         <h2 className='title'>título de los productos</h2>
       </div>
-      <div className='padre'>
+      <div className=''>
         {data.map(item => ( 
           <Item
             key={item.id}

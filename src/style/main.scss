@@ -45,3 +45,13 @@
     margin-right: 16px; /* Ajusta el margen como desees */
 }
 
+.active {
+    color:red;
+}
+
+.background-carrusel {
+    background-image: url('src/img/imagen-banner.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
