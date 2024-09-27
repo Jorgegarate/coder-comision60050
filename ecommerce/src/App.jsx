@@ -1,9 +1,14 @@
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import logo from "./img/JorgeShop.svg"
 
 function App() {
 
   return (
     <>
-      <h2>hola mundo</h2>
+      <Header logo ={logo}/>
+
+      <Footer logo ={logo}/>
     </>
   )
 }
