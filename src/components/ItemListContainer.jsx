@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Item from "./Item.jsx";
 import { db } from "../data/Db.js";
 
-const Main = () => {
+const ItemListContainer = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -30,4 +30,4 @@ const Main = () => {
   );
 }
 
-export default Main;
+export default ItemListContainer;

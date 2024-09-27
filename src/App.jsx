@@ -1,7 +1,7 @@
 import Header from "./components/Header.jsx"
 import logo from './img/TiendaDeJorge.svg';
 import Carrusel from "./components/Carrusel.jsx"
-import Main from "./components/Main.jsx"
+import ItemListContainer from "./components/ItemListContainer.jsx"
 import Footer from "./components/Footer.jsx"
 import Polera from './img/polera.jpg';
 function App() {
@@ -10,7 +10,7 @@ function App() {
     <>
       <Header logo={logo}/>
       <Carrusel />
-      <Main/>
+      <ItemListContainer/>
       <Footer logo={logo}/>
     </>
   )
