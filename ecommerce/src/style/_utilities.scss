@@ -1,0 +1,33 @@
+* {
+    /*Borrar parametros de navegadores*/
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  html {
+    font-size: 62.5%;
+  }
+  
+  body {
+    background-color: #ffff;
+  }
+
+  .d-flex{
+      display: flex;
+  }
+  .content-space-between {
+      justify-content: space-between;
+  }
+  .content-align-items-center {
+      align-items: center;
+  }
+  
+  .container-full {
+      padding-left: 40px;
+      padding-right: 40px;
+  }
