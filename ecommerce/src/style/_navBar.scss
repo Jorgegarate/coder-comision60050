@@ -1,3 +1,8 @@
+.navbar-font{
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: black;
+}
 .toolbar-icon {
     position: relative;
     .toolbar-count{
@@ -15,29 +20,70 @@
     }
 }
 
-
-
 $breakpoint-md: 768px;
 @media (max-width: $breakpoint-md) {
     .nav-sm-background {
         background: white;
-        height: 100vh;
+        height: calc(100vh - 5.2rem);
         top: 0;
         right: 0;
         z-index: 99;
         transform:translateX(100%);
+        animation: slide-out .6s ease-in-out forwards;
         &.active {
             transform: translateX(10%);
+            animation: slide-in .6s ease-in-out forwards;
         }
     }
     .black-veil{
         position: absolute;
+        animation: opacity-out 1s ease-in-out forwards;
         &.active{
-            height: 100vw;
+            height: 100vh;
             width: 100vw;
             background: rgba(0, 0, 0, 0.235);
             top: 0;
             left: 0;
+            z-index: 9;
+            animation: opacity-in 1s ease-in-out forwards;
+            
         }
+        
+    }
+
+}
+@keyframes slide-in {
+    0% {
+        transform: translateX(100vw);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-out {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100vw);
+    }
+}
+
+@keyframes opacity-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes opacity-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }

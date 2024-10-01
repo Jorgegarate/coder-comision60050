@@ -1,0 +1,25 @@
+.title-product{
+    font-size: 2.2rem;
+    font-weight: 300;
+}
+.cost {
+    font-size: 2.2rem;
+    color: black;
+    &-new {
+        font-size: 2.2rem;
+        color: red;
+        &.sale {
+            font-size: 1rem;
+            background: red ;
+            border-radius: 4rem;
+            color: white;
+            padding: .2rem .6rem;
+            align-items: center;
+            align-content: center;
+        }
+    }
+    &.tached {
+        text-decoration: line-through;
+        color: grey; /* Cambia el color si deseas que se vea diferente */
+    }
+}

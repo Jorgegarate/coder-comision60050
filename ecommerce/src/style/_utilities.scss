@@ -6,7 +6,7 @@
     text-decoration: none;
     border: none;
     outline: none;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Roboto", system-ui;
   }
   
   html {
@@ -18,6 +18,14 @@
   .w-100 {
     width: 100%;
   }
+  .w-auto {
+    width: auto;
+  }
+  .img-fluid {
+    height: 60px;
+    width: auto;
+  }
+
   .icon {
     font-size: 2.4rem;
     color: black;
@@ -29,7 +37,11 @@
     font-size: 4rem;
     color: black;
   }
-  
+  .border {
+    border: 3px solid black;
+    border-radius: .8rem; /* Cambia el color y el grosor según tu preferencia */
+  }
+
   body {
     background-color: #ffff;
   }
@@ -53,22 +65,35 @@
   }
 
   .p-vertical {
-    padding-top: 32px;
-    padding-bottom: 32px;
+    padding-top: 12px;
+    padding-bottom: 12px;
   }
 
   header {
-    background: rgb(230, 216, 216);
+    background: rgb(255, 255, 255);
   }
 
   .mr {
     margin-right: 1.6rem;
   }
+  .mx {
+    margin-top: 1.6rem;
+    margin-bottom: 1.6rem;
+  }
+  .my {
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+  }
+  .mt-2 {
+    margin-top:2rem ;
+  }
+  .mt-6 {
+    margin-top: 6rem;
+  }
 
   .d-none {
     display: none;
   }
-  
   $breakpoint-sm: 576px;
   $breakpoint-md: 768px;
 
@@ -93,10 +118,30 @@
       .mr-sm{
         margin-right: 1.6rem;
       }
+      .m-xy-sm {
+        margin: 1.6rem;
+      }
+      .p-xy-sm {
+        padding: 2.6rem;
+      }
+      .flex-column {
+        flex-direction: column;
+      }
+      .mt-md:not(:last-child) {
+        margin-bottom:.8rem ;
+      }
  
   }
   @media (min-width: $breakpoint-md) {
     .w-md-100 {
       width: 100%;
     }
+    .mr-md{
+      margin-right: 1.6rem;
+    }
 }
+
+/*ROW Y COL*/
+
+
+
