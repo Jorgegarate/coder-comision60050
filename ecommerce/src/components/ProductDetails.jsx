@@ -87,7 +87,7 @@ function ProductDetails({ productId }) {
     }
 
     return (
-        <div className=''>
+        <div className='sticky'>
             <h3 className='title-product mt-2'>{product.details[0].name}</h3>
             <p className='mt-2'>{product.details[1].description}</p>
 

@@ -179,11 +179,12 @@
     .mr-md{
       margin-right: 1.6rem;
     }
-    .sticky {
-      position: sticky;
-    }
-}
 
+}
+.sticky {
+  position: sticky;
+  top: 4rem;
+}
 /*botones*/
 .btn-primary{
   background-color: black;
