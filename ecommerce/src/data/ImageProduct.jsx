@@ -11,9 +11,10 @@ export const dbImage = [
     {
       id: 2,
       image:[
-        { name: "audifonos-04" },
-        { name: "audifonos-05" },
-        { name: "audifonos-06" }
+        { name: "celular-01" },
+        { name: "celular-02" },
+        { name: "celular-03" },
+        { name: "celular-04" }
       ]
     }
   ];

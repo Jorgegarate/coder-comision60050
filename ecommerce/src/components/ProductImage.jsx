@@ -6,7 +6,6 @@ function ProductImage({ productId }) {
   const [selectedImage, setSelectedImage] = useState(null); // Estado para la imagen seleccionada
 
   useEffect(() => {
-    // Buscamos el producto en dbImage usando el id proporcionado
     const foundProduct = dbImage.find(item => item.id === productId);
     if (foundProduct) {
       setProduct(foundProduct);
@@ -18,22 +17,21 @@ function ProductImage({ productId }) {
     return <div>Loading...</div>;
   }
 
-  // Controlador para cambiar la imagen seleccionada
   const handleImageClick = (imgName) => {
     setSelectedImage(imgName);
   };
 
   return (
-    <div className='container-full'>
-      <div className="image-list my">
+    <div className='container'>
+      <div className="image-list">
         <img 
           src={`../src/img/${selectedImage}.avif`} 
           alt={selectedImage} 
           className="col-12"
         />
         
-        <div className="image-list">
-            <div className="d-flex gap-1">
+        <div className="image-list swiper swiper-pointer-events">
+            <div className="d-flex gap-1 mt-2">
                 {product.image.map((img, index) => (
                 <img 
                     key={index} 

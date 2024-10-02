@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { IoChevronForwardOutline } from "react-icons/io5";
 import ProductImage from "./ProductImage";
 import ProductDetails from "./ProductDetails";
-function ProductPage() {
+function ProductPage(props) {
 
   return (
-    <div className="container-full mx">
-      <div className="d-flex">
+    <div className="container mx">
+      <div className="row">
         <button className="d-flex">
           <p>boton 1</p>
           <IoChevronForwardOutline />
@@ -20,15 +20,14 @@ function ProductPage() {
           <IoChevronForwardOutline />
         </button>
       </div>
-      
       <div className="row mt-6">
-        <div className="col-12 col-sm-6 col-xl-7">
-          <div className="row">
-              <ProductImage productId={1} />
+        <div className="col-12 col-sm-8 col-xl-7">
+          <div className="">
+              <ProductImage productId={2}/>
           </div>
         </div>
-        <div className="col-12 col-sm-6 col-xl-5">
-          <ProductDetails productId={3}/>
+        <div className="col-12 col-sm-4 col-xl-5">
+          <ProductDetails productId={2}/>
         </div>
       </div>
     </div>

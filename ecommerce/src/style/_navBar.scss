@@ -36,12 +36,12 @@ $breakpoint-md: 768px;
         }
     }
     .black-veil{
-        position: absolute;
+        position: fixed;
         animation: opacity-out 1s ease-in-out forwards;
         &.active{
             height: 100vh;
             width: 100vw;
-            background: rgba(0, 0, 0, 0.235);
+            background: rgba(0, 0, 0, 0.442);
             top: 0;
             left: 0;
             z-index: 9;
