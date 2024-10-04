@@ -9,7 +9,7 @@ function ProductImage({ productId }) {
     const foundProduct = dbImage.find(item => item.id === productId);
     if (foundProduct) {
       setProduct(foundProduct);
-      setSelectedImage(foundProduct.image[0].name); // Establecemos la primera imagen como seleccionada por defecto
+      setSelectedImage(foundProduct.image[0].name);
     }
   }, [productId]);
 
