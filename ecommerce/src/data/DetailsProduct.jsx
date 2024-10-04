@@ -5,7 +5,7 @@ export const dbDetails = [
         { name: "JBL Tune 520BT Auriculares inalámbricos on-ear - Negro" },
         { description: "Este es un parrafo muy lindo" },
         { cost: "3.990" },
-        { newcost: "2.990" },
+        { newcost: "" },
         { variants: [
             {
               color: "negro",

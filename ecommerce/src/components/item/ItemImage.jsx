@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { dbImage } from "../data/ImageProduct";
+import { dbImage } from "../../data/ImageProduct";
 
 function ProductImage({ productId }) {
   const [product, setProduct] = useState(null);

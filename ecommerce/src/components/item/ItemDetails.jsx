@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { dbDetails } from "../data/DetailsProduct";
+import { dbDetails } from "../../data/DetailsProduct";
 import ItemCount from './ItemCount';
 
 function ProductDetails({ productId }) {

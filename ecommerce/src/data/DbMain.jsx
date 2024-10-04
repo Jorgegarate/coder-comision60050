@@ -5,7 +5,7 @@ export const dbMain = [
     },
     {
         id:2,
-        name:"Ofertas",
+        name:"Premiun",
     },
     {
         id:3,
