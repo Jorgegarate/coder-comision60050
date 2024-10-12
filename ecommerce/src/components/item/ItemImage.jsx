@@ -1,27 +1,40 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { dbImage } from "../../data/ImageProduct";
-
+import { useImageSelector } from '../../hooks/useImageSelector';
+import gift from '../../assets/animate.gif'
 function ProductImage({ productId }) {
   const [product, setProduct] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null); // Estado para la imagen seleccionada
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const foundProduct = dbImage.find(item => item.id === productId);
-    if (foundProduct) {
-      setProduct(foundProduct);
-      setSelectedImage(foundProduct.image[0].name);
-    }
+    const fetchProduct = async () => {
+      try {
+        const foundProduct = await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(dbImage.find(item => item.id === productId));
+          }, 111112000);
+        });
+
+        if (foundProduct) {
+          setProduct(foundProduct);
+        }
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
   }, [productId]);
 
-  if (!product) {
-    return <div>Loading...</div>;
-  }
+  const { selectedImage, handleImageClick } = useImageSelector(product);
 
-  const handleImageClick = (imgName) => {
-    setSelectedImage(imgName);
-  };
-
-  return (
+  return loading ? (
+    <div className='load'>
+      <img className="w-auto" src={gift} alt="" />
+    </div>
+  ) : (
     <div className='container'>
       <div className="image-list">
         <img 
@@ -31,17 +44,17 @@ function ProductImage({ productId }) {
         />
         
         <div className="image-list swiper swiper-pointer-events">
-            <div className="d-flex gap-1 mt-2">
-                {product.image.map((img, index) => (
-                <img 
-                    key={index} 
-                    src={`../src/img/${img.name}.avif`} 
-                    alt={img.name} 
-                    className={`img-fluid ${selectedImage === img.name ? 'border border-primary' : ''}`}
-                    onClick={() => handleImageClick(img.name)}
-                />
-                ))}
-            </div>
+          <div className="d-flex gap-1 mt-2">
+            {product.image.map((img, index) => (
+              <img 
+                key={index} 
+                src={`../src/img/${img.name}.avif`} 
+                alt={img.name} 
+                className={`img-fluid ${selectedImage === img.name ? 'border border-primary' : ''}`}
+                onClick={() => handleImageClick(img.name)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

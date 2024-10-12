@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 
-function Breadcrumbs({ productName, categoryName, productId }) {
+function Breadcrumbs({ productName, categoryName, categoryId, productId }) {
   const breadcrumbs = [
     { id: 1, label: "Inicio", path: "/" },
-    { id: 2, label: categoryName || "Categoría", path: "/categoria" }, // Ajusta el path según tu enrutamiento
-    { id: 3, label: productName || "Producto", path: productId ? `/producto/${productId}` : "#" }, // Añadido ID del producto
+    { id: 2, label: categoryName || "Category", path: categoryId ? `/category/${categoryId}` : "/category" },
+    { id: 3, label: productName || "Detail", path: productId ? `/detail/${productId}` : "#" },
   ];
 
   return (

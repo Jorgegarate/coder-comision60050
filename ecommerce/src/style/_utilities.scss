@@ -37,10 +37,18 @@
     font-size: 4rem;
     color: black;
   }
-  .border {
-    border: 3px solid black;
-    border-radius: .8rem; /* Cambia el color y el grosor según tu preferencia */
+  .swiper {
+    & img {
+      border: 3px solid rgb(255, 255, 255);
+      border-radius: .8rem;
+    
+    }
+    & .border {
+      border: 3px solid black;
+      border-radius: .8rem;
+    }
   }
+  
 
   body {
     background-color: #ffff;
@@ -191,6 +199,19 @@
   border-radius: 3px;
   font-size: 1.4rem;
   color: white;
+}
+
+.load {
+  top: 0px;
+  right: 0px;
+  position: absolute;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  img {
+    width: 30vw;
+  }
 }
 
 

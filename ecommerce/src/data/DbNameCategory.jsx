@@ -1,4 +1,4 @@
-export const dbMain = [
+export const dbNameCategory = [
     {
         id:1,
         name:"Tecnología"

@@ -7,7 +7,7 @@ function ProductDetails({ productId }) {
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [selectedSize, setSelectedSize] = useState('');
     const [availableQuantity, setAvailableQuantity] = useState(0);
-    const [errorMessage, setErrorMessage] = useState(''); // Estado para el mensaje de error
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const foundProduct = dbDetails.find(item => item.id === productId);
@@ -25,7 +25,7 @@ function ProductDetails({ productId }) {
             const availableQuantity = sizeDetails ? sizeDetails.cantidad : 0;
             const totalInCart = getTotalInCartForSelectedItem();
             setAvailableQuantity(availableQuantity - totalInCart);
-            setErrorMessage(''); // Limpiar el mensaje de error al cambiar tamaño o color
+            setErrorMessage('');
         }
     }, [product, selectedVariant, selectedSize]);
 
@@ -76,9 +76,9 @@ function ProductDetails({ productId }) {
 
             localStorage.setItem('cart', JSON.stringify(existingCart));
             console.log('Producto agregado al carrito:', existingCart);
-            setErrorMessage(''); // Limpiar mensaje de error al agregar con éxito
+            setErrorMessage('');
         } else {
-            setErrorMessage('Cantidad excedida'); // Actualiza el mensaje de error
+            setErrorMessage('Cantidad excedida');
         }
     };
 
@@ -140,9 +140,9 @@ function ProductDetails({ productId }) {
             </div>
 
             {errorMessage ? (
-                <p style={{ color: 'red' }}>{errorMessage}</p> // Mostrar mensaje de error
+                <p style={{ color: 'red' }}>{errorMessage}</p>
             ) : (
-                <p>Cantidad disponible: {availableQuantity}</p> // Mostrar cantidad disponible
+                <p>Cantidad disponible: {availableQuantity}</p>
             )}
         </div>
     );

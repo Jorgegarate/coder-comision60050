@@ -23,3 +23,18 @@
         color: grey; /* Cambia el color si deseas que se vea diferente */
     }
 }
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.card{
+    padding: 20px;
+    flex: 1 1 200px;
+    text-align: center;
+    & img {
+        width: 200px;
+    }
+}
