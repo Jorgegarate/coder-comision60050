@@ -8,6 +8,9 @@
     outline: none;
     font-family: "Roboto", system-ui;
   }
+  h3 {
+    color: $primary;
+  }
   .secundary {
     font-weight: 800;
   }
@@ -165,10 +168,10 @@
   }
   .load {
     top: 0px;
-    right: 11110px;
+    right: 0px;
     position: absolute;
     z-index: 999;
-    height: 100vh;
+    height: 60vh;
     background-color: white;
     img {
       width: 60vw;
