@@ -8,9 +8,10 @@ function NavLinkList({ links, onClick }) {
         <NavLink
           key={link.id}
           to={`/category/${link.id}`}
-          className="mt-md mr-md"
+          className={({ isActive }) => 
+            `mt-md mr-md ${isActive ? 'active' : ''}`
+          }
           onClick={() => onClick(link.id)}
-          activeClassName="active"
         >
           {link.name}
         </NavLink>

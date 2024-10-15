@@ -4,7 +4,7 @@ function Breadcrumbs({ productName, categoryName, categoryId, productId }) {
   const breadcrumbs = [
     { id: 1, label: "Inicio", path: "/" },
     { id: 2, label: categoryName || "Category", path: categoryId ? `/category/${categoryId}` : "/category" },
-    { id: 3, label: productName || "Detail", path: productId ? `/detail/${productId}` : "#" },
+    { id: 3, label: productName || "Detail", path: productName ? `/detail/${productName}` : "#" },
   ];
 
   return (

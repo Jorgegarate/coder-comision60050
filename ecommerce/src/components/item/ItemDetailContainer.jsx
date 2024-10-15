@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ItemImage from "./ItemImage";
 import ItemDetails from "./ItemDetails";
-import Breadcrumbs from "../Breadcrumbs";
 import { useParams } from "react-router-dom";
 import { dbRelationCategoryItem } from "../../data/DbRelationCategoryItem";
 import { dbNameCategory } from "../../data/DbNameCategory";
 import { detailsProduct } from "../../data/DetailsProduct";
+import Breadcrumnbs from "../Breadcrumbs"
 import LoadGif from "../LoadGif";
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -21,34 +21,28 @@ function ItemDetailContainer() {
 
   useEffect(() => {
     const fetchData = async () => {
+      
       try {
-        setIsLoading(true);
-
         await delay(2000);
+        setIsLoading(true);
+        const foundProduct =  detailsProduct.find(product => product.id === productId);
+        console.log("Producto encontrado:", foundProduct);
 
-        const details = await detailsProduct();
-        const relationCategoryItem = await dbRelationCategoryItem();
-        const nameCategory = await dbNameCategory();
-
-        const foundProduct = details.find(product => product.id === productId);
-
-        const foundCategory = relationCategoryItem.find(category =>
+        const foundCategory = dbRelationCategoryItem.find(category =>
           category.items.some(item => item.item === productId)
         );
+        console.log("Categoría encontrada:", foundCategory);
         const foundCategoryId = foundCategory?.id;
+        console.log("Categoría encontrada:", foundCategory); 
 
         const foundCategoryName = foundCategory
-          ? nameCategory.find(category => category.id === foundCategory.id)?.name
+          ? dbNameCategory.find(category => category.id === foundCategory.id)?.name
           : "Category";
+        console.log("Nombre de la categoría:", foundCategoryName);
 
-        if (foundProduct) {
-          setProductDetails(foundProduct);
-          setCategoryId(foundCategoryId);
-          setCategoryName(foundCategoryName);
-        } else {
-          console.error("Producto no encontrado");
-        }
-        
+        setCategoryId(foundCategoryId);
+        setCategoryName(foundCategoryName);
+        setProductDetails(foundProduct.details[0].name)
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -58,22 +52,15 @@ function ItemDetailContainer() {
 
     fetchData();
   }, [productId]);
-
   if (isLoading) {
-    return <div><LoadGif /></div>;
+    return <LoadGif/>
   }
-  if (productDetails) {
-    return <div>Producto no encontrado</div>;
-  }
-
   return (
     <div className="container px mx background-product">
-      
-      <Breadcrumbs 
-        productName={productDetails.details[0].name}
-        categoryName={categoryName} 
-        categoryId={categoryId}
-        productId={productId}
+      <Breadcrumnbs 
+      productName = {productDetails}
+      categoryName = {categoryName}
+      categoryId ={categoryId}
       />
       <div className="row mt-6">
         <div className="col-12 col-sm-8 col-xl-7">

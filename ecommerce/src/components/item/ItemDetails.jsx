@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { detailsProduct } from "../../data/DetailsProduct";
 import ItemCount from './ItemCount';
-import Load from '../LoadGif';
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -15,7 +14,7 @@ function ProductDetails({ productId }) {
     useEffect(() => {
         const fetchProductDetails = async () => {
             try {
-                await delay(2000);
+                await delay(200);
 
                 const foundProduct = detailsProduct.find(item => item.id === productId);
                 if (foundProduct) {
