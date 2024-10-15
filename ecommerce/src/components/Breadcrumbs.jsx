@@ -8,10 +8,13 @@ function Breadcrumbs({ productName, categoryName, categoryId, productId }) {
   ];
 
   return (
-    <nav aria-label="breadcrumb">
+    <nav className="breadcrumb">
       <ol className="d-flex">
         {breadcrumbs.map((crumb, index) => (
-          <li key={crumb.id} className="">
+          <li
+            key={crumb.id}
+            className={`${crumb.id === 3 && productId ? "breadcrumb-product" : ""}`}
+          >
             {index < breadcrumbs.length - 1 ? (
               <Link to={crumb.path}>{crumb.label}</Link>
             ) : (
@@ -28,5 +31,4 @@ function Breadcrumbs({ productName, categoryName, categoryId, productId }) {
 }
 
 export default Breadcrumbs;
-
 

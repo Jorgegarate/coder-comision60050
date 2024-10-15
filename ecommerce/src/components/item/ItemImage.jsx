@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { dbImage } from "../../data/ImageProduct";
 import { useImageSelector } from '../../hooks/useImageSelector';
-import gift from '../../assets/animate.gif'
+import Load from '../LoadGif';
 function ProductImage({ productId }) {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ function ProductImage({ productId }) {
         const foundProduct = await new Promise((resolve) => {
           setTimeout(() => {
             resolve(dbImage.find(item => item.id === productId));
-          }, 111112000);
+          }, 2000);
         });
 
         if (foundProduct) {
@@ -31,9 +31,7 @@ function ProductImage({ productId }) {
   const { selectedImage, handleImageClick } = useImageSelector(product);
 
   return loading ? (
-    <div className='load'>
-      <img className="w-auto" src={gift} alt="" />
-    </div>
+    <Load/>
   ) : (
     <div className='container'>
       <div className="image-list">

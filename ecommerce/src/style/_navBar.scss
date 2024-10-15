@@ -2,6 +2,9 @@
     font-size: 1.6rem;
     font-weight: 400;
     color: black;
+    & a {
+        color: $primary;
+    }
 }
 .toolbar-icon {
     position: relative;
@@ -20,7 +23,7 @@
     }
 }
 .active {
-    color: red;
+    font-weight: 700;
 }
 
 $breakpoint-md: 768px;

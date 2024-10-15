@@ -70,5 +70,23 @@ export const dbImage = [
         { name: "aspiradorasamsung-03" },
         { name: "aspiradorasamsung-04" }
       ]
+    },
+    {
+      id: 9,
+      image:[
+        { name: "rack_tv_ancho_extendible_120_198cm_2_tiras_homer-01" },
+        { name: "rack_tv_ancho_extendible_120_198cm_2_tiras_homer-02" },
+        { name: "rack_tv_ancho_extendible_120_198cm_2_tiras_homer-03" },
+        { name: "rack_tv_ancho_extendible_120_198cm_2_tiras_homer-04" }
+      ]
+    },
+    {
+      id: 10,
+      image:[
+        { name: "ropero_5_puertas_4_cajones_165x47x204_cm-01" },
+        { name: "ropero_5_puertas_4_cajones_165x47x204_cm-02" },
+        { name: "ropero_5_puertas_4_cajones_165x47x204_cm-03" },
+        { name: "ropero_5_puertas_4_cajones_165x47x204_cm-04" }
+      ]
     }
   ];

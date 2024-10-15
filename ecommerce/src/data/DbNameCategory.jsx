@@ -4,10 +4,6 @@ export const dbNameCategory = [
         name:"Tecnología"
     },
     {
-        id:2,
-        name:"Premiun",
-    },
-    {
         id:3,
         name:"Electrohogar"
     },

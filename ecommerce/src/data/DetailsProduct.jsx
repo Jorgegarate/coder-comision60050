@@ -10,10 +10,7 @@ export const dbDetails = [
             {
               color: "negro",
               sizes: [
-                { size: "s", cantidad: 5 },
-                { size: "m", cantidad: 3 },
-                { size: "l", cantidad: 10 },
-                { size: "xl", cantidad: 2 }
+                { size: "standar", cantidad: 5 }
               ]
             },
             {
@@ -150,6 +147,42 @@ export const dbDetails = [
             { description: "Contar con una aspiradora robot te permitirá ahorrar tiempo y esfuerzo. Es la solución para que la limpieza de tu casa se realice con mayor frecuencia y puedas mantener los ambientes impecables siempre. La Samsung Jet Bot AI+ hará la tarea por ti." },
             { cost: "899.990" },
             { newcost: "549.990" },
+            { variants: [
+              {
+                color: "Blanca",
+                sizes: [
+                  { size: "", cantidad: 12 }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 9,
+        details: [
+            { name: "Rack Tv Ancho Extendible 120-198cm 2 Tiras Homer" },
+            { description: "El Rack TV Ancho Extendible 120-198cm 2 Tiras Vanguardia Homer 40 de alto 30 de profundidad parece ser un mueble de televisión diseñado para adaptarse a diferentes tamaños de televisores y proporcionar espacio de almacenamiento. A continuación, desglosaré las características de este mueble" },
+            { cost: "88.990" },
+            { newcost: "59.990" },
+            { variants: [
+              {
+                color: "Blanca",
+                sizes: [
+                  { size: "", cantidad: 32 }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 10,
+        details: [
+            { name: "Ropero 5 puertas 4 cajones 165x47x204 cm" },
+            { description: "El ropero de 5 puertas y 4 cajones de Moval es la solución perfecta para mantener tu ropa organizada y tu dormitorio impecable. Con su diseño clásico y espacioso, podrás guardar todo lo que necesitas, desde prendas dobladas hasta colgadas, y hasta tener espacio extra para cajas de tela o plástico. Además, su espejo de gran tamaño te permitirá lucir tu mejor look antes de salir de casa." },
+            { cost: "199.990" },
+            { newcost: "189.990" },
             { variants: [
               {
                 color: "Blanca",

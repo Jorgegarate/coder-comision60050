@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import ItemPage from "./components/item/ItemPage";
+import ItemDetailContainer from "./components/item/ItemDetailContainer";
 import Layout from "./components/Layout";
-import Categoria from "./components/Categoria";
+import ItemListContainer from "./components/ItemListContainer";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 
@@ -10,8 +10,8 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/category/:categoryId" element={<Categoria />} />
-        <Route path="/detail/:id" element={<ItemPage />} />
+        <Route path="/category/:categoryId" element={<ItemListContainer />} />
+        <Route path="/item/:id" element={<ItemDetailContainer />} />
         <Route path="*" element ={<NotFound/>} />
       </Routes>
     </Layout>

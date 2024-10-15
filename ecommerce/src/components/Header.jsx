@@ -6,7 +6,7 @@ function Header(img) {
    <header className="container-full d-flex content-space-between p-vertical ">
         <div className="img-div">
            <Link to={`/`}>
-            <img src={img.logo} alt="logo" />
+            <img className="mx my"src={img.logo} alt="logo" />
            </Link> 
         </div>
         <Navbar/>

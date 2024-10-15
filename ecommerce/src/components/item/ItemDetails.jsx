@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { dbDetails } from "../../data/DetailsProduct";
 import ItemCount from './ItemCount';
+import Load from '../LoadGif';
+
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 function ProductDetails({ productId }) {
     const [product, setProduct] = useState(null);
@@ -10,13 +13,23 @@ function ProductDetails({ productId }) {
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
-        const foundProduct = dbDetails.find(item => item.id === productId);
-        if (foundProduct) {
-            setProduct(foundProduct);
-            const defaultVariant = foundProduct.details[4].variants[0];
-            setSelectedVariant(defaultVariant);
-            setSelectedSize(defaultVariant.sizes[0].size);
-        }
+        const fetchProductDetails = async () => {
+            try {
+                await delay(2000);
+
+                const foundProduct = dbDetails.find(item => item.id === productId);
+                if (foundProduct) {
+                    setProduct(foundProduct);
+                    const defaultVariant = foundProduct.details[4].variants[0];
+                    setSelectedVariant(defaultVariant);
+                    setSelectedSize(defaultVariant.sizes[0].size);
+                }
+            } catch (error) {
+                console.error("Error fetching product details:", error);
+            }
+        };
+
+        fetchProductDetails();
     }, [productId]);
 
     useEffect(() => {
@@ -83,12 +96,12 @@ function ProductDetails({ productId }) {
     };
 
     if (!product || !selectedVariant) {
-        return <div>Loading...</div>;
+        return;
     }
 
     return (
         <div className='sticky'>
-            <h3 className='title-product mt-2'>{product.details[0].name}</h3>
+            <h3 className='title-product mt-2 secundary'>{product.details[0].name}</h3>
             <p className='mt-2'>{product.details[1].description}</p>
 
             <div className='mt-2 d-flex align-items-center'>

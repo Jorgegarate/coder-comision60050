@@ -1,8 +1,13 @@
 import React from 'react'
+import Carousel from './carousel'
+import ItemListContainer from './ItemListContainer'
 
 function Home() {
   return (
-    <div>Home</div>
+    <>
+    <Carousel/>
+    <ItemListContainer/>
+    </>
   )
 }
 

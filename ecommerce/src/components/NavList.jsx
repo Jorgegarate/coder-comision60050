@@ -3,7 +3,8 @@ import { IoMenuOutline, IoCloseSharp } from "react-icons/io5";
 import { RiFacebookFill } from "react-icons/ri";
 import { IoLogoInstagram } from "react-icons/io5";
 import { dbNameCategory } from "../data/DbNameCategory";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import NavLinkList from "./NavLinkList";
 
 function NavList() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,19 +50,7 @@ function NavList() {
         <a className="d-sm-block d-none" onClick={closeSidebar}>
           <IoCloseSharp className="icon" />
         </a>
-        <div className="d-flex flex-column content-space-center navbar-font">
-          {buttons.map((button) => (
-            <NavLink
-              key={button.id}
-              to={`/category/${button.id}`}
-              className="mt-md mr-md"
-              onClick={() => handleCategoryClick(button.id)}
-              activeClassName="active"
-            >
-              {button.name}
-            </NavLink>
-          ))}
-        </div>
+        <NavLinkList links={buttons} onClick={handleCategoryClick} />
         <div className="d-flex d-sm-block d-none">
           <RiFacebookFill className="icon" />
           <IoLogoInstagram className="icon" />

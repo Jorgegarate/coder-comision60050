@@ -16,6 +16,13 @@ export const dbRelationCategoryItem = [
         { item: 7 },
         { item: 8 }
         ]
+    },
+    {
+        id:4,
+        items:[
+        { item: 9 },
+        { item: 10 }
+        ]
     }
 
 ]
