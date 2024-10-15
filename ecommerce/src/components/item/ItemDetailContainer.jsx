@@ -22,9 +22,9 @@ function ItemDetailContainer() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true);  // Indicamos que está cargando
+        setIsLoading(true);
 
-        await delay(2000);  // Simulamos un retraso para la carga
+        await delay(2000);
 
         const details = await detailsProduct();
         const relationCategoryItem = await dbRelationCategoryItem();
@@ -50,23 +50,20 @@ function ItemDetailContainer() {
           console.error("Producto no encontrado");
         }
         
-        setIsLoading(false);  // Una vez que todos los datos estén cargados, dejamos de cargar
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data: ", error);
-        setIsLoading(false);  // Detenemos la carga si hay un error
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, [productId]);
 
-  // Si todavía está cargando, mostramos el componente LoadGif
   if (isLoading) {
     return <div><LoadGif /></div>;
   }
-
-  // Si los detalles del producto no existen, mostramos un mensaje de error
-  if (!productDetails) {
+  if (productDetails) {
     return <div>Producto no encontrado</div>;
   }
 
