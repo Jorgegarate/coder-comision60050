@@ -3,9 +3,10 @@ import ItemImage from "./ItemImage";
 import ItemDetails from "./ItemDetails";
 import Breadcrumbs from "../Breadcrumbs";
 import { useParams } from "react-router-dom";
-import { fetchDbRelationCategoryItem } from "../../data/DbRelationCategoryItem";
-import { fetchDbNameCategory } from "../../data/DbNameCategory";
-import { fetchDbDetails } from "../../data/DetailsProduct";
+import { dbRelationCategoryItem } from "../../data/DbRelationCategoryItem";
+import { dbNameCategory } from "../../data/DbNameCategory";
+import { detailsProduct } from "../../data/DetailsProduct";
+import LoadGif from "../LoadGif";
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -16,45 +17,63 @@ function ItemDetailContainer() {
   const [productDetails, setProductDetails] = useState(null);
   const [categoryName, setCategoryName] = useState("Category");
   const [categoryId, setCategoryId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await delay(2000);
+        setIsLoading(true);  // Indicamos que está cargando
 
-        const details = await fetchDbDetails();
-        const relationCategoryItem = await fetchDbRelationCategoryItem();
-        const nameCategory = await fetchDbNameCategory();
+        await delay(2000);  // Simulamos un retraso para la carga
+
+        const details = await detailsProduct();
+        const relationCategoryItem = await dbRelationCategoryItem();
+        const nameCategory = await dbNameCategory();
 
         const foundProduct = details.find(product => product.id === productId);
-        setProductDetails(foundProduct);
 
         const foundCategory = relationCategoryItem.find(category =>
           category.items.some(item => item.item === productId)
         );
-        setCategoryId(foundCategory?.id);
+        const foundCategoryId = foundCategory?.id;
 
         const foundCategoryName = foundCategory
           ? nameCategory.find(category => category.id === foundCategory.id)?.name
           : "Category";
-        setCategoryName(foundCategoryName);
 
+        // Verificamos que se encontró el producto antes de actualizar el estado
+        if (foundProduct) {
+          setProductDetails(foundProduct);
+          setCategoryId(foundCategoryId);
+          setCategoryName(foundCategoryName);
+        } else {
+          console.error("Producto no encontrado");
+        }
+        
+        setIsLoading(false);  // Una vez que todos los datos estén cargados, dejamos de cargar
       } catch (error) {
         console.error("Error fetching data: ", error);
+        setIsLoading(false);  // Detenemos la carga si hay un error
       }
     };
 
     fetchData();
   }, [productId]);
 
+  // Si todavía está cargando, mostramos el componente LoadGif
+  if (isLoading) {
+    return <div><LoadGif /></div>;
+  }
+
+  // Si los detalles del producto no existen, mostramos un mensaje de error
   if (!productDetails) {
-    return <div>Loading...</div>;
+    return <div>Producto no encontrado</div>;
   }
 
   return (
     <div className="container px mx background-product">
       <Breadcrumbs 
-        productName={productDetails?.details[0].name}
+        productName={productDetails.details[0].name}
         categoryName={categoryName} 
         categoryId={categoryId}
         productId={productId}

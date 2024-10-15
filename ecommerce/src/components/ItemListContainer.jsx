@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { dbDetails } from '../data/DetailsProduct';
+import { detailsProduct } from '../data/DetailsProduct';
 import { dbRelationCategoryItem } from '../data/DbRelationCategoryItem';
 import { dbNameCategory } from '../data/DbNameCategory';
 import { dbImage } from '../data/ImageProduct';
@@ -13,10 +13,10 @@ function ItemListContainer() {
     : null;
 
   const filteredProducts = categoryId
-    ? dbDetails.filter(product =>
+    ? detailsProduct.filter(product =>
         selectedCategory.items.some(item => item.item === product.id)
       )
-    : dbDetails;
+    : detailsProduct;
 
   const nameCategory = categoryId 
     ? dbNameCategory.find(category => category.id === parseInt(categoryId))

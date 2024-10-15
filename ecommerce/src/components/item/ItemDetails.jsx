@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { dbDetails } from "../../data/DetailsProduct";
+import { detailsProduct } from "../../data/DetailsProduct";
 import ItemCount from './ItemCount';
 import Load from '../LoadGif';
 
@@ -17,7 +17,7 @@ function ProductDetails({ productId }) {
             try {
                 await delay(2000);
 
-                const foundProduct = dbDetails.find(item => item.id === productId);
+                const foundProduct = detailsProduct.find(item => item.id === productId);
                 if (foundProduct) {
                     setProduct(foundProduct);
                     const defaultVariant = foundProduct.details[4].variants[0];

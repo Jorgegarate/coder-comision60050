@@ -1,4 +1,4 @@
-export const dbDetails = [
+export const detailsProduct = [
     {
       id: 1,
       details: [
