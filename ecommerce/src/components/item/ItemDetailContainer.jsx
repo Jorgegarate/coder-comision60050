@@ -63,7 +63,7 @@ function ItemDetailContainer() {
   if (isLoading) {
     return <div><LoadGif /></div>;
   }
-  if (productDetails) {
+  if (!productDetails) {
     return <div>Producto no encontrado</div>;
   }
 
