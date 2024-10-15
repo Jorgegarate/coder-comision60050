@@ -41,7 +41,6 @@ function ItemDetailContainer() {
           ? nameCategory.find(category => category.id === foundCategory.id)?.name
           : "Category";
 
-        // Verificamos que se encontró el producto antes de actualizar el estado
         if (foundProduct) {
           setProductDetails(foundProduct);
           setCategoryId(foundCategoryId);
@@ -63,12 +62,13 @@ function ItemDetailContainer() {
   if (isLoading) {
     return <div><LoadGif /></div>;
   }
-  if (!productDetails) {
+  if (productDetails) {
     return <div>Producto no encontrado</div>;
   }
 
   return (
     <div className="container px mx background-product">
+      
       <Breadcrumbs 
         productName={productDetails.details[0].name}
         categoryName={categoryName} 
