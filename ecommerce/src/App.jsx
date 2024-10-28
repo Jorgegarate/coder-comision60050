@@ -5,7 +5,12 @@ import ItemListContainer from "./components/ItemListContainer";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import { CartProvider } from "./context/CartProvider";
+import { cargarDatos } from "./services/firebaseService"; 
+import { useEffect } from "react";
 function App() {
+  useEffect(() => {
+    cargarDatos();
+  }, []);
   return (
     
     <CartProvider>
