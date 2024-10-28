@@ -4,17 +4,21 @@ import Layout from "./components/Layout";
 import ItemListContainer from "./components/ItemListContainer";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
-
+import { CartProvider } from "./context/CartProvider";
 function App() {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/category/:categoryId" element={<ItemListContainer />} />
-        <Route path="/item/:id" element={<ItemDetailContainer />} />
-        <Route path="*" element ={<NotFound/>} />
-      </Routes>
-    </Layout>
+    
+    <CartProvider>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/category/:categoryId" element={<ItemListContainer />} />
+          <Route path="/item/:id" element={<ItemDetailContainer />} />
+          <Route path="*" element ={<NotFound/>} />
+        </Routes>
+      </Layout>
+    </CartProvider>
+    
   );
 }
 

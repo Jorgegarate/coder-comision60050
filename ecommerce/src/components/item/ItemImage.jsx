@@ -10,9 +10,7 @@ function ProductImage({ productId }) {
     const fetchProduct = async () => {
       try {
         const foundProduct = await new Promise((resolve) => {
-          setTimeout(() => {
             resolve(dbImage.find(item => item.id === productId));
-          }, 2000);
         });
 
         if (foundProduct) {

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import CartDetails from "../components/CartDetails";
 
 function Header(img) {
   return (
@@ -10,6 +11,7 @@ function Header(img) {
            </Link> 
         </div>
         <Navbar/>
+        
    </header>
   );
 }

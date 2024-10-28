@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { detailsProduct } from "../../data/DetailsProduct";
 import ItemCount from './ItemCount';
+import { useCart } from '../../context/CartProvider';
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 function ProductDetails({ productId }) {
+    const { validateAndAddToCart, getTotalInCartForSelectedItem } = useCart();
     const [product, setProduct] = useState(null);
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [selectedSize, setSelectedSize] = useState('');
@@ -13,18 +15,13 @@ function ProductDetails({ productId }) {
 
     useEffect(() => {
         const fetchProductDetails = async () => {
-            try {
-                await delay(200);
-
-                const foundProduct = detailsProduct.find(item => item.id === productId);
-                if (foundProduct) {
-                    setProduct(foundProduct);
-                    const defaultVariant = foundProduct.details[4].variants[0];
-                    setSelectedVariant(defaultVariant);
-                    setSelectedSize(defaultVariant.sizes[0].size);
-                }
-            } catch (error) {
-                console.error("Error fetching product details:", error);
+            await delay(200);
+            const foundProduct = detailsProduct.find(item => item.id === productId);
+            if (foundProduct) {
+                setProduct(foundProduct);
+                const defaultVariant = foundProduct.details[4].variants[0];
+                setSelectedVariant(defaultVariant);
+                setSelectedSize(defaultVariant.sizes[0].size);
             }
         };
 
@@ -34,9 +31,8 @@ function ProductDetails({ productId }) {
     useEffect(() => {
         if (product && selectedVariant) {
             const sizeDetails = selectedVariant.sizes.find(s => s.size === selectedSize);
-            const availableQuantity = sizeDetails ? sizeDetails.cantidad : 0;
-            const totalInCart = getTotalInCartForSelectedItem();
-            setAvailableQuantity(availableQuantity - totalInCart);
+            const totalInCart = getTotalInCartForSelectedItem(product.id, selectedVariant.color, selectedSize);
+            setAvailableQuantity(sizeDetails ? sizeDetails.cantidad - totalInCart : 0);
             setErrorMessage('');
         }
     }, [product, selectedVariant, selectedSize]);
@@ -51,58 +47,28 @@ function ProductDetails({ productId }) {
         setSelectedSize(size);
     };
 
-    const getTotalInCartForSelectedItem = () => {
-        const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
-        const existingItem = existingCart.find(item =>
-            item.id === product.id && item.color === selectedVariant.color && item.size === selectedSize
-        );
-        return existingItem ? existingItem.quantity : 0; 
-    };
-
     const miOnAdd = (cantidadSeleccionada) => {
-        const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
         const newItem = {
             id: product.id,
             name: product.details[0].name,
             color: selectedVariant.color,
             size: selectedSize,
             price: product.details[3].newcost || product.details[2].cost,
-            quantity: cantidadSeleccionada
+            quantity: cantidadSeleccionada,
         };
 
-        const existingItemIndex = existingCart.findIndex(item =>
-            item.id === newItem.id && item.color === newItem.color && item.size === newItem.size
-        );
-
-        const sizeDetails = selectedVariant.sizes.find(s => s.size === selectedSize);
-        const availableQuantity = sizeDetails ? sizeDetails.cantidad : 0;
-        const currentQuantityInCart = existingItemIndex >= 0 ? existingCart[existingItemIndex].quantity : 0;
-        const totalQuantityToAdd = currentQuantityInCart + cantidadSeleccionada;
-
-        if (totalQuantityToAdd <= availableQuantity) {
-            if (existingItemIndex >= 0) {
-                existingCart[existingItemIndex].quantity += cantidadSeleccionada; 
-            } else {
-                existingCart.push(newItem);
-            }
-
-            localStorage.setItem('cart', JSON.stringify(existingCart));
-            console.log('Producto agregado al carrito:', existingCart);
-            setErrorMessage('');
-        } else {
-            setErrorMessage('Cantidad excedida');
-        }
+        const { success, errorMessage } = validateAndAddToCart(newItem, availableQuantity);
+        setErrorMessage(errorMessage);
     };
 
     if (!product || !selectedVariant) {
-        return;
+        return <p>Cargando...</p>;
     }
 
     return (
         <div className='sticky'>
             <h3 className='title-product mt-2 secundary'>{product.details[0].name}</h3>
             <p className='mt-2'>{product.details[1].description}</p>
-
             <div className='mt-2 d-flex align-items-center'>
                 {product.details[3].newcost ? (
                     <>
@@ -118,7 +84,6 @@ function ProductDetails({ productId }) {
                     <p className='cost mt-2'>${product.details[2].cost}</p>
                 )}
             </div>
-
             <div className='mt-2'>
                 <label>Color:</label>
                 <select onChange={(e) => handleVariantChange(e.target.value)} value={selectedVariant.color}>
@@ -129,8 +94,6 @@ function ProductDetails({ productId }) {
                     ))}
                 </select>
             </div>
-
-
             <div className='mt-2'>
                 <label>Tamaño:</label>
                 <select onChange={(e) => handleSizeChange(e.target.value)} value={selectedSize}>
@@ -141,8 +104,6 @@ function ProductDetails({ productId }) {
                     ))}
                 </select>
             </div>
-
-
             <div>
                 <ItemCount 
                     initial={1}
@@ -150,7 +111,6 @@ function ProductDetails({ productId }) {
                     onAdd={miOnAdd}
                 />
             </div>
-
             {errorMessage ? (
                 <p style={{ color: 'red' }}>{errorMessage}</p>
             ) : (
@@ -161,3 +121,4 @@ function ProductDetails({ productId }) {
 }
 
 export default ProductDetails;
+
