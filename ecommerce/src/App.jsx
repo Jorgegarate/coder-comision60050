@@ -5,12 +5,8 @@ import ItemListContainer from "./components/ItemListContainer";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import { CartProvider } from "./context/CartProvider";
-import { cargarDatos } from "./services/firebaseService"; 
-import { useEffect } from "react";
+import Date from "./components/Date";
 function App() {
-  useEffect(() => {
-    //cargarDatos();
-  }, []);
   return (
     
     <CartProvider>
@@ -20,6 +16,7 @@ function App() {
           <Route path="/category/:categoryId" element={<ItemListContainer />} />
           <Route path="/item/:id" element={<ItemDetailContainer />} />
           <Route path="*" element ={<NotFound/>} />
+          <Route path="date" element ={<Date/>} />
         </Routes>
       </Layout>
     </CartProvider>
