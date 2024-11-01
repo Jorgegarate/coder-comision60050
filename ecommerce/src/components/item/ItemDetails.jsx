@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
-import { detailsProduct } from "../../data/DetailsProduct";
+import React, { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../services/config/firebaseConfig';
 import ItemCount from './ItemCount';
 import { useCart } from '../../context/CartProvider';
+import Load from '../LoadGif';
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -11,17 +13,30 @@ function ProductDetails({ productId }) {
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [selectedSize, setSelectedSize] = useState('');
     const [availableQuantity, setAvailableQuantity] = useState(0);
+    const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const fetchProductDetails = async () => {
-            await delay(200);
-            const foundProduct = detailsProduct.find(item => item.id === productId);
-            if (foundProduct) {
-                setProduct(foundProduct);
-                const defaultVariant = foundProduct.details[4].variants[0];
-                setSelectedVariant(defaultVariant);
-                setSelectedSize(defaultVariant.sizes[0].size);
+            try {
+
+                const productRef = doc(db, "detailsProduct", String(productId));
+                const productDoc = await getDoc(productRef);
+
+                if (productDoc.exists()) {
+                    const foundProduct = productDoc.data();
+                    setProduct(foundProduct);
+                    
+                    const defaultVariant = foundProduct.details[4].variants[0];
+                    setSelectedVariant(defaultVariant);
+                    setSelectedSize(defaultVariant.sizes[0].size);
+                } else {
+                    console.error("Producto no encontrado en Firebase");
+                }
+            } catch (error) {
+                console.error("Error al obtener el producto:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -61,9 +76,9 @@ function ProductDetails({ productId }) {
         setErrorMessage(errorMessage);
     };
 
-    if (!product || !selectedVariant) {
-        return <p>Cargando...</p>;
-    }
+    if (loading) return <Load />;
+
+    if (!product || !selectedVariant) return <p>Producto no encontrado.</p>;
 
     return (
         <div className='sticky'>
@@ -121,4 +136,3 @@ function ProductDetails({ productId }) {
 }
 
 export default ProductDetails;
-

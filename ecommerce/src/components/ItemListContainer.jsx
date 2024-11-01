@@ -1,39 +1,81 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { detailsProduct } from '../data/DetailsProduct';
-import { dbRelationCategoryItem } from '../data/DbRelationCategoryItem';
-import { dbNameCategory } from '../data/DbNameCategory';
-import { dbImage } from '../data/ImageProduct';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import serviceConfig from '../services/config/servicesConfig';
+import LoadGif from './LoadGif';
 
 function ItemListContainer() {
   const { categoryId } = useParams();
-  
-  const selectedCategory = categoryId 
-    ? dbRelationCategoryItem.find(category => category.id === parseInt(categoryId))
-    : null;
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [nameCategory, setNameCategory] = useState({ name: "Todos los productos" });
+  const [isLoading, setIsLoading] = useState(true);
+  const [images, setImages] = useState({}); // Estado para almacenar URLs de imágenes
 
-  const filteredProducts = categoryId
-    ? detailsProduct.filter(product =>
-        selectedCategory.items.some(item => item.item === product.id)
-      )
-    : detailsProduct;
+  // Inicializa Firebase y Firestore
+  const app = initializeApp(serviceConfig);
+  const db = getFirestore(app);
 
-  const nameCategory = categoryId 
-    ? dbNameCategory.find(category => category.id === parseInt(categoryId))
-    : { name: "Todos los productos" };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
 
-  if (categoryId && !selectedCategory) {
-    return (
-      <div className='container min-height'>
-        <h1>No se encontró la categoría</h1>
-      </div>
-    );
+        // Obtiene categorías y relaciones en paralelo
+        const [categorySnapshot, relationSnapshot, productSnapshot] = await Promise.all([
+          getDocs(collection(db, "dbNameCategory")),
+          getDocs(collection(db, "dbRelationCategoryItem")),
+          getDocs(collection(db, "detailsProduct"))
+        ]);
+
+        // Mapear datos
+        const categoriesNames = categorySnapshot.docs.map(doc => doc.data());
+        const categories = relationSnapshot.docs.map(doc => doc.data());
+        const products = productSnapshot.docs.map(doc => doc.data());
+
+        // Filtrar productos
+        const selectedCategory = categoryId 
+          ? categories.find(category => category.id === parseInt(categoryId)) 
+          : null;
+
+        const filtered = selectedCategory
+          ? products.filter(product => selectedCategory.items.some(item => item.item === product.id))
+          : products;
+
+        // Nombre de la categoría
+        const categoryName = categoryId 
+          ? categoriesNames.find(category => category.id === parseInt(categoryId)) 
+          : { name: "Todos los productos" };
+
+        // Cargar imágenes en paralelo
+        const imagePromises = filtered.map(async product => {
+          const imageDocRef = doc(db, "dbImage", String(product.id));
+          const imageDoc = await getDoc(imageDocRef);
+          return { id: product.id, imageData: imageDoc.exists() ? imageDoc.data().image : null };
+        });
+        
+        const imageResults = await Promise.all(imagePromises);
+        const imageMap = imageResults.reduce((map, result) => {
+          map[result.id] = result.imageData;
+          return map;
+        }, {});
+
+        setFilteredProducts(filtered);
+        setNameCategory(categoryName || { name: "Todos los productos" });
+        setImages(imageMap);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [categoryId]);
+
+  if (isLoading) {
+    return <LoadGif/>;
   }
-
-  const getFirstImage = (productId) => {
-    const productImages = dbImage.find(product => product.id === productId);
-    return productImages ? productImages.image[0].name : null; 
-  };
 
   return (
     <div className='container min-height'>
@@ -44,12 +86,16 @@ function ItemListContainer() {
             <div className='card' key={product.id}>
               <Link to={`/item/${product.id}`}>
                 <img 
-                  src={`../src/img/${getFirstImage(product.id)}.avif`} 
-                  alt={product.details[0].name} 
+                  src={
+                    images[product.id]?.[0]?.name
+                      ? `../src/img/${images[product.id][0].name}.avif`
+                      : `../src/img/placeholder.avif`
+                  }
+                  alt={product.details?.[0]?.name || 'Imagen de producto'} 
                 />
-                <h3>{product.details[0].name}</h3>
+                <h3>{product.details?.[0]?.name || 'Nombre no disponible'}</h3>
                 <div className='px my'>
-                  {product.details[3].newcost ? (
+                  {product.details?.[3]?.newcost ? (
                     <>  
                       <div className='d-flex content-space-center'>
                         <p className='cost-new mr-1'>${product.details[3].newcost}</p>
@@ -62,7 +108,7 @@ function ItemListContainer() {
                       </p>
                     </>
                   ) : (
-                    <p className='cost mt-2'>${product.details[2].cost}</p>
+                    <p className='cost mt-2'>${product.details?.[2]?.cost || 'Precio no disponible'}</p>
                   )}
                 </div>
               </Link>

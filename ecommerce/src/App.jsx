@@ -9,7 +9,7 @@ import { cargarDatos } from "./services/firebaseService";
 import { useEffect } from "react";
 function App() {
   useEffect(() => {
-    cargarDatos();
+    //cargarDatos();
   }, []);
   return (
     

@@ -2,15 +2,20 @@ import React, { useState, useEffect, useRef } from "react";
 import { IoMenuOutline, IoCloseSharp } from "react-icons/io5";
 import { RiFacebookFill } from "react-icons/ri";
 import { IoLogoInstagram } from "react-icons/io5";
-import { dbNameCategory } from "../data/DbNameCategory";
 import { useNavigate } from "react-router-dom";
 import NavLinkList from "./NavLinkList";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+import serviceConfig from '../services/config/servicesConfig';
 
 function NavList() {
   const [isOpen, setIsOpen] = useState(false);
   const [buttons, setButtons] = useState([]);
   const navList = useRef(null);
   const navigate = useNavigate();
+
+  const app = initializeApp(serviceConfig);
+  const db = getFirestore(app);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -20,8 +25,22 @@ function NavList() {
     setIsOpen(false);
   };
 
+  const fetchCategories = async () => {
+    try {
+      const collectionRef = collection(db, "dbNameCategory");
+      const querySnapshot = await getDocs(collectionRef);
+      const categoriesData = querySnapshot.docs.map(doc => ({
+        id: doc.data().id,
+        name: doc.data().name
+      }));
+      setButtons(categoriesData);
+    } catch (e) {
+      console.error("Error al obtener categorías de Firestore: ", e);
+    }
+  };
+
   useEffect(() => {
-    setButtons(dbNameCategory);
+    fetchCategories();
   }, []);
 
   const handleCategoryClick = (categoryId) => {

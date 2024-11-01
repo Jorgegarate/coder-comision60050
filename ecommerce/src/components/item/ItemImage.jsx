@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { dbImage } from "../../data/ImageProduct";
 import { useImageSelector } from '../../hooks/useImageSelector';
 import Load from '../LoadGif';
+import { db } from '../../services/config/firebaseConfig';
+import { doc, getDoc } from 'firebase/firestore'; // Asegúrate de importar getDoc
+
 function ProductImage({ productId }) {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -9,13 +11,10 @@ function ProductImage({ productId }) {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const foundProduct = await new Promise((resolve) => {
-            resolve(dbImage.find(item => item.id === productId));
-        });
-
-        if (foundProduct) {
-          setProduct(foundProduct);
-        }
+          const imageDocRef = doc(db, "dbImage", String(productId)); // Usa productId aquí
+          const imageDoc = await getDoc(imageDocRef);
+           setProduct({ ...imageDoc, image: imageDoc.exists() ? imageDoc.data().image : null });
+        
       } catch (error) {
         console.error('Error fetching product:', error);
       } finally {
@@ -29,7 +28,7 @@ function ProductImage({ productId }) {
   const { selectedImage, handleImageClick } = useImageSelector(product);
 
   return loading ? (
-    <Load/>
+    <Load />
   ) : (
     <div className='container'>
       <div className="image-list">
@@ -41,7 +40,7 @@ function ProductImage({ productId }) {
         
         <div className="image-list swiper swiper-pointer-events">
           <div className="d-flex gap-1 mt-2">
-            {product.image.map((img, index) => (
+            {product && product.image.map((img, index) => (
               <img 
                 key={index} 
                 src={`../src/img/${img.name}.avif`} 

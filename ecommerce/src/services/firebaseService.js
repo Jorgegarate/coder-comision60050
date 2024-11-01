@@ -1,27 +1,17 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { dbCarrusel } from "../data/DbCarrusel";
-import { dbNameCategory } from "../data/dbNameCategory";
-import { dbRelationCategoryItem } from "../data/dbRelationCategoryItem";
-import { detailsProduct } from "../data/detailsProduct";
-import { dbImage } from "../data/ImageProduct";
+import { getFirestore, collection, doc, setDoc } from "firebase/firestore";
+import { dbCarrusel } from '../data/DbCarrusel.js';
+import { dbNameCategory } from "../data/DbNameCategory.js";
+import { dbRelationCategoryItem } from "../data/DbRelationCategoryItem.js";
+import { detailsProduct } from "../data/DetailsProduct.js";
+import { dbImage } from "../data/ImageProduct.js";
+import serviceConfigNode from "./config/servicesConfig.js";
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
-};
-
-// Inicializar Firebase y Firestore
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(serviceConfigNode);
 const db = getFirestore(app);
 
 export const cargarDatos = async () => {
   try {
-    // Cargar cada colección en Firestore
     const collections = [
       { name: "dbCarrusel", data: dbCarrusel },
       { name: "dbNameCategory", data: dbNameCategory },
@@ -33,7 +23,8 @@ export const cargarDatos = async () => {
     for (const { name, data } of collections) {
       const collectionRef = collection(db, name);
       for (const item of data) {
-        await addDoc(collectionRef, item);
+        const docRef = doc(collectionRef, String(item.id)); // Usa el campo `id` del objeto como ID personalizado
+        await setDoc(docRef, item);
       }
     }
 

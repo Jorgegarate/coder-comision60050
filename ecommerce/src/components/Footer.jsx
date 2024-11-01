@@ -4,7 +4,6 @@ import { dbNameCategory } from "../data/DbNameCategory";
 
 function Footer(img) {
   const handleCategoryClick = (categoryId) => {
-    console.log("Footer link clicked:", categoryId);
   };
 
   return (

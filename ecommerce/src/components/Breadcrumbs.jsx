@@ -2,21 +2,20 @@ import { Link } from "react-router-dom";
 
 function Breadcrumbs({ productName, categoryName, categoryId, productId }) {
   const breadcrumbs = [
-    { id: 1, label: "Inicio", path: "/" },
-    { id: 2, label: categoryName || "Category", path: categoryId ? `/category/${categoryId}` : "/category" },
-    { id: 3, label: productName || "Detail", path: productName ? `/detail/${productName}` : "#" },
+    { label: "Inicio", path: "/" },
+    { label: categoryName || "Category", path: categoryId ? `/category/${categoryId}` : "/category" },
+    { label: productName || "Detail", path: productId ? `/detail/${productId}` : "#" },
   ];
 
   return (
-    <nav className="breadcrumb">
+    <nav className="breadcrumb" aria-label="Breadcrumb">
       <ol className="d-flex">
         {breadcrumbs.map((crumb, index) => (
-          <li
-            key={crumb.id}
-            className={`${crumb.id === 3 && productId ? "breadcrumb-product" : ""}`}
-          >
+          <li key={index} className={index === 2 ? "breadcrumb-product" : ""}>
             {index < breadcrumbs.length - 1 ? (
-              <Link to={crumb.path}>{crumb.label}</Link>
+              <Link to={crumb.path} aria-current={index === breadcrumbs.length - 1 ? "page" : undefined}>
+                {crumb.label}
+              </Link>
             ) : (
               <span>{crumb.label}</span>
             )}
