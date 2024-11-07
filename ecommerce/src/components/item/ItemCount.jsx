@@ -27,7 +27,7 @@ const ItemCount = (props) => {
                     <p>{contador}</p>
                     <span className="btn-quantity plus-btn" onClick={handleClick}>+</span>
                 </div>
-                <button onClick={handleAddToCart} className='w-100 btn-primary'>Pagar</button>
+                <button onClick={handleAddToCart} className='w-100 btn-primary'>{props.buttonTitle}</button>
             </div>
         </>
     );

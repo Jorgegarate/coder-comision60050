@@ -46,7 +46,6 @@ function ItemDetailContainer() {
           }
         }
 
-        // Obtener los detalles del producto en detailsProduct
         const productSnapshot = await getDocs(collection(db, "detailsProduct"));
         const foundProduct = productSnapshot.docs
           .map(doc => ({ id: doc.id, ...doc.data() }))
@@ -54,7 +53,6 @@ function ItemDetailContainer() {
 
         console.log("Producto encontrado:", foundProduct);
 
-        // Establecer el estado con los datos obtenidos
         setCategoryId(relationData?.id);
         setCategoryName(categoryName);
         setProductDetails(foundProduct ? foundProduct.details[0].name : "Detalles no disponibles");

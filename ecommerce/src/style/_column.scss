@@ -39,11 +39,30 @@
     max-width: 58.333333%;
   }
   
-  .col-8 {
-    flex: 0 0 66.666667%;
-    max-width: 66.666667%;
-  }
-  
+  .py {
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+}
+
+.flex-wrap {
+  display: flex;
+  gap: 1.2rem; /* Aplica el espacio entre columnas */
+}
+
+.col-8 {
+  flex: 0 0 66.666667%;
+  max-width: 66.666667%;
+}
+
+.col-8.gap {
+  flex: 0 0 calc(66.666667% - 1.2rem); /* Resta el espacio del gap */
+  max-width: calc(66.666667% - 1.2rem);
+}
+
+.col-4 {
+  flex: 0 0 calc(33.333333% - 1.2rem); /* Ajuste para espacio */
+  max-width: calc(33.333333% - 1.2rem);
+}
   .col-9 {
     flex: 0 0 75%;
     max-width: 75%;

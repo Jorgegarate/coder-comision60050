@@ -8,6 +8,7 @@ export const CartProvider = ({ children }) => {
         return savedCart ? JSON.parse(savedCart) : [];
     });
 
+    // Sincroniza el carrito en localStorage cada vez que cambia
     useEffect(() => {
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }, [cartItems]);
@@ -27,6 +28,14 @@ export const CartProvider = ({ children }) => {
         } else {
             setCartItems([...cartItems, item]);
         }
+    };
+
+    const updateCartItemQuantity = (itemId, newQuantity) => {
+        const updatedItems = cartItems.map(item => 
+            item.id === itemId ? { ...item, quantity: newQuantity } : item
+        ).filter(item => item.quantity > 0); // Eliminar items con cantidad 0
+
+        setCartItems(updatedItems);
     };
 
     const getTotalInCartForSelectedItem = (id, color, size) => {
@@ -52,7 +61,13 @@ export const CartProvider = ({ children }) => {
     };
 
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, getTotalInCartForSelectedItem, validateAndAddToCart }}>
+        <CartContext.Provider value={{ 
+            cartItems, 
+            addToCart, 
+            updateCartItemQuantity, 
+            getTotalInCartForSelectedItem, 
+            validateAndAddToCart 
+        }}>
             {children}
         </CartContext.Provider>
     );

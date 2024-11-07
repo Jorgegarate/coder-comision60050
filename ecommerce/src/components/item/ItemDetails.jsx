@@ -5,8 +5,6 @@ import ItemCount from './ItemCount';
 import { useCart } from '../../context/CartProvider';
 import Load from '../LoadGif';
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
 function ProductDetails({ productId }) {
     const { validateAndAddToCart, getTotalInCartForSelectedItem } = useCart();
     const [product, setProduct] = useState(null);
@@ -19,7 +17,6 @@ function ProductDetails({ productId }) {
     useEffect(() => {
         const fetchProductDetails = async () => {
             try {
-
                 const productRef = doc(db, "detailsProduct", String(productId));
                 const productDoc = await getDoc(productRef);
 
@@ -72,8 +69,13 @@ function ProductDetails({ productId }) {
             quantity: cantidadSeleccionada,
         };
 
+        // Validar la cantidad y agregar al carrito
         const { success, errorMessage } = validateAndAddToCart(newItem, availableQuantity);
         setErrorMessage(errorMessage);
+
+        if (success) {
+            setAvailableQuantity(availableQuantity - cantidadSeleccionada);  // Actualizar cantidad disponible
+        }
     };
 
     if (loading) return <Load />;
@@ -124,6 +126,7 @@ function ProductDetails({ productId }) {
                     initial={1}
                     stock={availableQuantity}
                     onAdd={miOnAdd}
+                    buttonTitle={`Agregar`}
                 />
             </div>
             {errorMessage ? (
