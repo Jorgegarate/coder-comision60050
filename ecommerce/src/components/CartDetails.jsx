@@ -4,6 +4,7 @@ import { db } from '../services/config/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import LoadImage from './LoadImage.jsx';
 import ItemCount from './item/ItemCount.jsx';
+import { Link } from 'react-router-dom';
 
 function CartDetails() {
     const { cartItems, updateCartItemQuantity } = useCart();
@@ -131,7 +132,9 @@ const totalPrice = cartItems.reduce((total, item) => {
                         <div>
                             <h3>Productos: {totalQuantity}</h3>
                             <h3>Total: ${totalPrice.toLocaleString().replace(',', '.')}</h3>
+                            <Link to="/checkout" className="w-100">
                             <button className='w-100 btn-primary'>Pagar</button>
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import serviceConfig from '../config/servicesConfig';
+import serviceConfig from './servicesConfig';
 
 const app = initializeApp(serviceConfig);
 const db = getFirestore(app);
