@@ -8,7 +8,6 @@ export const CartProvider = ({ children }) => {
         return savedCart ? JSON.parse(savedCart) : [];
     });
 
-    // Sincroniza el carrito en localStorage cada vez que cambia
     useEffect(() => {
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }, [cartItems]);
@@ -60,18 +59,23 @@ export const CartProvider = ({ children }) => {
         }
     };
 
+    const clearCart = () => {
+        setCartItems([]);
+        localStorage.removeItem('cartItems');
+    };
+
     return (
         <CartContext.Provider value={{ 
             cartItems, 
             addToCart, 
             updateCartItemQuantity, 
             getTotalInCartForSelectedItem, 
-            validateAndAddToCart 
+            validateAndAddToCart, 
+            clearCart
         }}>
             {children}
         </CartContext.Provider>
     );
 };
 
-// Hook para usar el contexto
 export const useCart = () => useContext(CartContext);

@@ -1,26 +1,31 @@
-// firebaseOrders.js
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "./config/firebaseConfig"; // Asegúrate de que este archivo exporte la instancia de Firestore
+import { collection, addDoc, doc, getDoc } from "firebase/firestore";
+import { db } from "./config/firebaseConfig";
 
-export const cargarOrden = async (formData, cartItems) => {
+// Función para cargar una nueva orden en Firestore
+export const cargarOrden = async (orderData) => {
   try {
-    const orderData = {
-      ...formData,
-      items: cartItems.map(item => ({
-        id: item.id,
-        name: item.name,
-        quantity: item.quantity,
-        price: item.price,
-        total: item.quantity * item.price,
-      })),
-      total: cartItems.reduce((total, item) => total + item.quantity * item.price, 0),
-      createdAt: new Date(),
-    };
-
-    // Guardar la orden en la colección "orders"
-    const docRef = await addDoc(collection(db, "orders"), orderData);
-    console.log("Orden creada con ID: ", docRef.id);
+    const docRef = await addDoc(collection(db, 'orders'), orderData);
+    console.log("Orden registrada con ID:", docRef.id);
+    return docRef.id; // Retornamos el ID de la orden
   } catch (error) {
-    console.error("Error al crear la orden: ", error);
+    console.error("Error al registrar la orden:", error);
+    throw error;
+  }
+};
+
+// Función para verificar si una orden existe en Firestore
+export const checkOrderExists = async (orderId) => {
+  try {
+    const docRef = doc(db, 'orders', orderId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return true; // La orden existe
+    } else {
+      return false; // La orden no existe
+    }
+  } catch (error) {
+    console.error("Error al verificar la orden:", error);
+    throw error;
   }
 };

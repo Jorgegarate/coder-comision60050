@@ -18,8 +18,6 @@ function CartDetails() {
                 const imageDoc = await getDoc(imageDocRef);
                 if (imageDoc.exists()) {
                     const imageArray = imageDoc.data().image;
-                    console.log("Image Data:", imageArray);
-
                     setProductImages(prevState => ({
                         ...prevState,
                         [productId]: imageArray[0]?.name || null
@@ -44,7 +42,7 @@ function CartDetails() {
                         [productId]: sizeDetails ? sizeDetails.cantidad - totalInCart : 0
                     }));
 
-                    console.log("Available Quantity:", sizeDetails ? sizeDetails.cantidad - totalInCart : 0);
+                    
                 } else {
                     console.log(`No product details found for Product ID: ${productId}`);
                 }
@@ -79,7 +77,6 @@ function CartDetails() {
 const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
 const totalPrice = cartItems.reduce((total, item) => {
     const priceInCents = Math.round(item.price * 1000);
-    console.log("Item Price in cents:", priceInCents);
     return total + item.quantity * priceInCents;
 }, 0);
 
