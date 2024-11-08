@@ -103,4 +103,5 @@ Este proyecto configura una base para una tienda en línea con **React**, **Vite
 - [Sass](https://sass-lang.com/)
 
 ## Operatividad
-![Entrega Final Garate](public/EntregaFinal-Garate.gif)
+![EntregaFinal-Garate](https://github.com/user-attachments/assets/c6c99e6f-00cc-4eef-a039-394a6cfe409a)
+
