@@ -96,7 +96,7 @@ const totalPrice = cartItems.reduce((total, item) => {
                                 <div>
                                     {productImages[item.id] ? (
                                         <img 
-                                            src={`../src/img/${productImages[item.id]}.avif`} 
+                                            src={`/src/assets/img/${productImages[item.id]}.avif`} 
                                             alt={`Imagen de ${item.name}`} 
                                             className="img-fluid"
                                             style={{ width: '100px', height: '100px', objectFit: 'cover' }}

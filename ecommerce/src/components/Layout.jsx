@@ -1,6 +1,6 @@
 import Header from "../components/Header"
 import Footer from "../components/Footer"
-import logo from "../img/JorgeShop.svg"
+import logo from "../assets/img/jorgeShop.svg"
 
 function Layout({children}) {
   return (

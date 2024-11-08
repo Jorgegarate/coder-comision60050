@@ -88,8 +88,8 @@ function ItemListContainer() {
                 <img 
                   src={
                     images[product.id]?.[0]?.name
-                      ? `../src/img/${images[product.id][0].name}.avif`
-                      : `../src/img/placeholder.avif`
+                      ? `/src/assets/img/${images[product.id][0].name}.avif`
+                      : `/src/assets/img/placeholder.avif`
                   }
                   alt={product.details?.[0]?.name || 'Imagen de producto'} 
                 />

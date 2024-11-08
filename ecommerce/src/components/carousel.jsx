@@ -19,7 +19,7 @@ const Carousel = () => {
       const collectionRef = collection(db, "dbCarrusel");
       const querySnapshot = await getDocs(collectionRef);
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      const images = data.map(item => `../src/img/${item.name}.jpeg`);
+      const images = data.map(item => `/src/assets/img/${item.name}.jpeg`);
       setSliderSections(images);
     } catch (e) {
       console.error("Error al obtener datos de Firestore: ", e);

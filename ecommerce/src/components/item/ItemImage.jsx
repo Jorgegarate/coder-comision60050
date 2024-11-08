@@ -33,7 +33,7 @@ function ProductImage({ productId }) {
     <div className='container'>
       <div className="image-list">
         <img 
-          src={`../src/img/${selectedImage}.avif`} 
+          src={`/src/assets/img/${selectedImage}.avif`} 
           alt={selectedImage} 
           className="col-12"
         />
@@ -43,7 +43,7 @@ function ProductImage({ productId }) {
             {product && product.image.map((img, index) => (
               <img 
                 key={index} 
-                src={`../src/img/${img.name}.avif`} 
+                src={`/src/assets/img/${img.name}.avif`} 
                 alt={img.name} 
                 className={`img-fluid ${selectedImage === img.name ? 'border border-primary' : ''}`}
                 onClick={() => handleImageClick(img.name)}
