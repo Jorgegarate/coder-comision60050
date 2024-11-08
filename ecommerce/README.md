@@ -101,3 +101,6 @@ Este proyecto configura una base para una tienda en línea con **React**, **Vite
 - [Documentación de Firebase](https://firebase.google.com/docs)
 - [React Icons](https://react-icons.github.io/react-icons/)
 - [Sass](https://sass-lang.com/)
+
+## Operatividad
+![Entrega Final Garate](./public/img/EntregaFinal-Garate.gif)
