@@ -27,9 +27,7 @@ function ProductDetails({ productId }) {
                     const defaultVariant = foundProduct.details[4].variants[0];
                     setSelectedVariant(defaultVariant);
                     setSelectedSize(defaultVariant.sizes[0].size);
-                } else {
-                    console.error("Producto no encontrado en Firebase");
-                }
+                } 
             } catch (error) {
                 console.error("Error al obtener el producto:", error);
             } finally {
@@ -69,7 +67,6 @@ function ProductDetails({ productId }) {
             quantity: cantidadSeleccionada,
         };
 
-        // Validar la cantidad y agregar al carrito
         const { success, errorMessage } = validateAndAddToCart(newItem, availableQuantity);
         setErrorMessage(errorMessage);
 

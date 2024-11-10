@@ -22,8 +22,7 @@ const Carousel = () => {
       const images = data.map(item => `../src/img/${item.name}.jpeg`);
       setSliderSections(images);
     } catch (e) {
-      console.error("Error al obtener datos de Firestore: ", e);
-    } finally {
+     } finally {
       setIsLoading(false);
     }
   };

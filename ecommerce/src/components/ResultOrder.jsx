@@ -13,9 +13,9 @@ function ResultOrder() {
 
   useEffect(() => {
     async function validateOrder() {
-      const exists = await checkOrderExists(id); // Verifica si el ID de la orden existe en la DB
+      const exists = await checkOrderExists(id); 
       setOrderExists(exists);
-      if (exists) clearCart(); // Limpia el carrito solo si la orden es válida
+      if (exists) clearCart();
     }
     validateOrder();
   }, [id]);

@@ -10,9 +10,7 @@ function ItemListContainer() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [nameCategory, setNameCategory] = useState({ name: "Todos los productos" });
   const [isLoading, setIsLoading] = useState(true);
-  const [images, setImages] = useState({}); // Estado para almacenar URLs de imágenes
-
-  // Inicializa Firebase y Firestore
+  const [images, setImages] = useState({});
   const app = initializeApp(serviceConfig);
   const db = getFirestore(app);
 
@@ -21,19 +19,16 @@ function ItemListContainer() {
       try {
         setIsLoading(true);
 
-        // Obtiene categorías y relaciones en paralelo
-        const [categorySnapshot, relationSnapshot, productSnapshot] = await Promise.all([
+         const [categorySnapshot, relationSnapshot, productSnapshot] = await Promise.all([
           getDocs(collection(db, "dbNameCategory")),
           getDocs(collection(db, "dbRelationCategoryItem")),
           getDocs(collection(db, "detailsProduct"))
         ]);
 
-        // Mapear datos
         const categoriesNames = categorySnapshot.docs.map(doc => doc.data());
         const categories = relationSnapshot.docs.map(doc => doc.data());
         const products = productSnapshot.docs.map(doc => doc.data());
 
-        // Filtrar productos
         const selectedCategory = categoryId 
           ? categories.find(category => category.id === parseInt(categoryId)) 
           : null;
@@ -47,8 +42,7 @@ function ItemListContainer() {
           ? categoriesNames.find(category => category.id === parseInt(categoryId)) 
           : { name: "Todos los productos" };
 
-        // Cargar imágenes en paralelo
-        const imagePromises = filtered.map(async product => {
+       const imagePromises = filtered.map(async product => {
           const imageDocRef = doc(db, "dbImage", String(product.id));
           const imageDoc = await getDoc(imageDocRef);
           return { id: product.id, imageData: imageDoc.exists() ? imageDoc.data().image : null };

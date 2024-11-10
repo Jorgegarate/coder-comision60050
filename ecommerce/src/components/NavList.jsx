@@ -35,7 +35,6 @@ function NavList() {
       }));
       setButtons(categoriesData);
     } catch (e) {
-      console.error("Error al obtener categorías de Firestore: ", e);
     }
   };
 

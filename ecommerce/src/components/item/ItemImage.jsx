@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useImageSelector } from '../../hooks/useImageSelector';
 import Load from '../LoadGif';
 import { db } from '../../services/config/firebaseConfig';
-import { doc, getDoc } from 'firebase/firestore'; // Asegúrate de importar getDoc
+import { doc, getDoc } from 'firebase/firestore'; 
 
 function ProductImage({ productId }) {
   const [product, setProduct] = useState(null);
@@ -11,7 +11,7 @@ function ProductImage({ productId }) {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-          const imageDocRef = doc(db, "dbImage", String(productId)); // Usa productId aquí
+          const imageDocRef = doc(db, "dbImage", String(productId));
           const imageDoc = await getDoc(imageDocRef);
            setProduct({ ...imageDoc, image: imageDoc.exists() ? imageDoc.data().image : null });
         

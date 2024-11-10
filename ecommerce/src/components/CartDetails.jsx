@@ -23,8 +23,7 @@ function CartDetails() {
                         [productId]: imageArray[0]?.name || null
                     }));
                 } else {
-                    console.log(`No image found for Product ID: ${productId}`);
-                }
+                    }
 
                 const productRef = doc(db, "detailsProduct", String(productId));
                 const productDoc = await getDoc(productRef);
@@ -43,12 +42,9 @@ function CartDetails() {
                     }));
 
                     
-                } else {
-                    console.log(`No product details found for Product ID: ${productId}`);
-                }
+                } 
             } catch (error) {
-                console.error('Error fetching product data:', error);
-            }
+              }
         };
 
         cartItems.forEach(item => {

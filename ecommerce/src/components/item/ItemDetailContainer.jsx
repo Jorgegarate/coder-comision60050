@@ -19,31 +19,21 @@ function ItemDetailContainer() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        console.log("Fetching data for productId:", productId);
 
-        // Obtener todos los documentos de la colección dbRelationCategoryItem
         const querySnapshot = await getDocs(collection(db, "dbRelationCategoryItem"));
-        console.log("Documentos obtenidos de dbRelationCategoryItem:", querySnapshot.docs.map(doc => doc.data()));
 
-        // Filtrar en el cliente para encontrar el documento adecuado
         const relationData = querySnapshot.docs
           .map(doc => ({ id: doc.id, ...doc.data() }))
           .find(doc => doc.items.some(itemObj => itemObj.item === productId));
 
-        console.log("relationData encontrado:", relationData);
-
         let categoryName = "Category";
         if (relationData) {
-          // Obtener la categoría correspondiente en dbNameCategory
           const categoryDoc = await getDocs(collection(db, "dbNameCategory"));
           const categoryData = categoryDoc.docs.find(doc => doc.id === String(relationData.id));
 
           if (categoryData) {
             categoryName = categoryData.data().name;
-            console.log("Nombre de categoría encontrado:", categoryName);
-          } else {
-            console.log("Categoría no encontrada para el id:", relationData.id);
-          }
+          } 
         }
 
         const productSnapshot = await getDocs(collection(db, "detailsProduct"));
@@ -51,7 +41,6 @@ function ItemDetailContainer() {
           .map(doc => ({ id: doc.id, ...doc.data() }))
           .find(product => product.id === productId);
 
-        console.log("Producto encontrado:", foundProduct);
 
         setCategoryId(relationData?.id);
         setCategoryName(categoryName);
@@ -60,7 +49,6 @@ function ItemDetailContainer() {
         console.error("Error fetching data: ", error);
       } finally {
         setIsLoading(false);
-        console.log("Finalización de la carga");
       }
     };
 

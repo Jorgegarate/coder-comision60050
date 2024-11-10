@@ -23,7 +23,7 @@ export const cargarDatos = async () => {
     for (const { name, data } of collections) {
       const collectionRef = collection(db, name);
       for (const item of data) {
-        const docRef = doc(collectionRef, String(item.id)); // Usa el campo `id` del objeto como ID personalizado
+        const docRef = doc(collectionRef, String(item.id)); 
         await setDoc(docRef, item);
       }
     }
