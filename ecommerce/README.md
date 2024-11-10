@@ -105,3 +105,7 @@ Este proyecto configura una base para una tienda en línea con **React**, **Vite
 ## Operatividad
 ![EntregaFinal-Garate](https://github.com/user-attachments/assets/c6c99e6f-00cc-4eef-a039-394a6cfe409a)
 
+## Base de datos y registros
+![Captura de pantalla 2024-11-10 a la(s) 1 49 07 a m](https://github.com/user-attachments/assets/920a48a0-bb2f-4b24-8a4f-6e1d216197df)
+
+
